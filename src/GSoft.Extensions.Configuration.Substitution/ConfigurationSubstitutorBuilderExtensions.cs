@@ -12,11 +12,11 @@ public static class ConfigurationSubstitutorBuilderExtensions
     /// You can escape values that must not be substituted using double curly braces, such as ${{Foo}}.
     /// </summary>
     /// <param name="configurationBuilder">The <see cref="IConfigurationBuilder"/> to add to.</param>
-    /// <param name="eagerValidate">Whether or not all the configuration must be validated to ensure there are no referenced configuration keys that does not exist.</param>
+    /// <param name="eagerValidation">Whether or not all the configuration must be validated to ensure there are no referenced configuration keys that does not exist.</param>
     /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-    public static IConfigurationBuilder AddSubstitution(this IConfigurationBuilder configurationBuilder, bool eagerValidate = false)
+    public static IConfigurationBuilder AddSubstitution(this IConfigurationBuilder configurationBuilder, bool eagerValidation = false)
     {
-        return AddSubstitution(configurationBuilder, new ConfigurationSubstitutor(), eagerValidate);
+        return AddSubstitution(configurationBuilder, new ConfigurationSubstitutor(), eagerValidation);
     }
 
     private static IConfigurationBuilder AddSubstitution(this IConfigurationBuilder configurationBuilder, ConfigurationSubstitutor substitutor, bool validate)

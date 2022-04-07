@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
@@ -6,6 +7,23 @@ namespace GSoft.Extensions.Configuration.Substitution.Tests;
 
 public class ConfigurationSubstitutorTests
 {
+    [Fact]
+    public void AddSubstitution_Does_Nothing_When_Value_Does_Not_Exist()
+    {
+        // Arrange
+        var configurationBuilder = new ConfigurationBuilder()
+            .AddInMemoryCollection()
+            .AddSubstitution();
+
+        var configuration = configurationBuilder.Build();
+
+        // Act
+        var value = configuration["Foo"];
+
+        // Assert
+        Assert.Null(value);
+    }
+
     [Fact]
     public void AddSubstitution_Returns_Value_Without_Substitution_When_No_Key_To_Substitute()
     {
@@ -20,10 +38,31 @@ public class ConfigurationSubstitutorTests
         var configuration = configurationBuilder.Build();
 
         // Act
-        var substituted = configuration["Foo"];
+        var value = configuration["Foo"];
 
         // Assert
-        Assert.Equal("Bar", substituted);
+        Assert.Equal("Bar", value);
+    }
+
+    [Fact]
+    public void AddSubstitution_Does_Not_Interfere_With_Set()
+    {
+        // Arrange
+        var configurationBuilder = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string>
+            {
+                { "Foo", "Bar" },
+            })
+            .AddSubstitution();
+
+        var configuration = configurationBuilder.Build();
+
+        // Act
+        configuration["Foo"] = "Baz";
+        var value = configuration["Foo"];
+
+        // Assert
+        Assert.Equal("Baz", value);
     }
 
     [Fact]
@@ -268,7 +307,7 @@ public class ConfigurationSubstitutorTests
                 { "O", "o" },
                 { "Baz", "rld" },
             })
-            .AddSubstitution(eagerValidate: true);
+            .AddSubstitution();
 
         var configuration = configurationBuilder.Build();
 
@@ -359,5 +398,34 @@ public class ConfigurationSubstitutorTests
 
         // Assert
         Assert.Equal("Hello ${{Bar}!", substituted);
+    }
+
+    [Fact]
+    public void AddSubstitution_Does_Not_Interfere_With_GetChildKeys()
+    {
+        // Arrange
+        var configurationBuilder = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string>
+            {
+                { "Foo", "Bar" },
+                { "Bar", "${Foo}" },
+            })
+            .AddSubstitution();
+
+        var configuration = configurationBuilder.Build();
+
+        // Act
+        var children = configuration.GetChildren().ToArray();
+
+        // Assert
+        Assert.Equal(2, children.Length);
+
+        var foo = Assert.Single(children, x => x.Key == "Foo");
+        var bar = Assert.Single(children, x => x.Key == "Bar");
+        Assert.NotNull(foo);
+        Assert.NotNull(bar);
+
+        Assert.Equal("Bar", foo.Value);
+        Assert.Equal("Bar", bar.Value);
     }
 }
