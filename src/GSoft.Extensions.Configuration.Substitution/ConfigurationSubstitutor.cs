@@ -37,17 +37,17 @@ internal sealed class ConfigurationSubstitutor
             // This prevents an useless list allocation when there is nothing to substitute
             alreadySubstitutedKeys ??= new List<string>(1) { key };
 
-            // Microsoft.Extensions.Configuration use case-insentitive variable keys
+            // Microsoft.Extensions.Configuration use case-insentitive keys
             if (alreadySubstitutedKeys.Contains(keyToSubstitute, StringComparer.OrdinalIgnoreCase))
             {
                 alreadySubstitutedKeys.Add(keyToSubstitute);
-                throw new RecursiveConfigurationVariableException(alreadySubstitutedKeys);
+                throw new RecursiveConfigurationKeyException(alreadySubstitutedKeys);
             }
 
             var substitutedValue = configuration[keyToSubstitute];
             if (substitutedValue == null)
             {
-                throw new UnresolvedConfigurationVariableException(keyToSubstitute, key);
+                throw new UnresolvedConfigurationKeyException(keyToSubstitute, key);
             }
 
             var recursivelySubstitutedValue = this.ApplySubstitutionRecursive(configuration, keyToSubstitute, substitutedValue, alreadySubstitutedKeys);

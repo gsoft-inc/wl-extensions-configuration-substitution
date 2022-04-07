@@ -7,7 +7,7 @@ namespace GSoft.Extensions.Configuration.Substitution.Tests;
 public class ConfigurationSubstitutorTests
 {
     [Fact]
-    public void AddSubstitution_Returns_Value_Without_Substitution_When_No_Variable_To_Substitute()
+    public void AddSubstitution_Returns_Value_Without_Substitution_When_No_Key_To_Substitute()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -27,7 +27,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Variables_In_The_Middle_Of_Value()
+    public void AddSubstitution_Can_Substitute_Keys_In_The_Middle_Of_Value()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -48,7 +48,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Variables_At_The_Beginning_Of_Value()
+    public void AddSubstitution_Can_Substitute_Keys_At_The_Beginning_Of_Value()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -69,7 +69,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Variables_At_The_End_Of_Value()
+    public void AddSubstitution_Can_Substitute_Keys_At_The_End_Of_Value()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -90,7 +90,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Variables_Using_Nested_Semicolon_Syntax()
+    public void AddSubstitution_Can_Substitute_Keys_Using_Nested_Semicolon_Syntax()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -111,7 +111,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Multiple_Variables_In_Single_Value()
+    public void AddSubstitution_Can_Substitute_Multiple_Keys_In_Single_Value()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -133,7 +133,29 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Throws_When_Referenced_Variable_Does_Not_Exist()
+    public void AddSubstitution_Can_Substitute_Keys_From_Arrays()
+    {
+        // Arrange
+        var configurationBuilder = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string>
+            {
+                { "Foo:0", "ArrayValue1" },
+                { "Foo:1", "ArrayValue2" },
+                { "Bar", "${Foo:0}${Foo:1}" },
+            })
+            .AddSubstitution();
+
+        var configuration = configurationBuilder.Build();
+
+        // Act
+        var substituted = configuration["Bar"];
+
+        // Assert
+        Assert.Equal("ArrayValue1ArrayValue2", substituted);
+    }
+
+    [Fact]
+    public void AddSubstitution_Throws_When_Referenced_Key_Does_Not_Exist()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -147,7 +169,7 @@ public class ConfigurationSubstitutorTests
         var configuration = configurationBuilder.Build();
 
         // Act & assert
-        var ex = Assert.Throws<UnresolvedConfigurationVariableException>(() => configuration["TestKey"]);
+        var ex = Assert.Throws<UnresolvedConfigurationKeyException>(() => configuration["TestKey"]);
         Assert.Contains("Foobar", ex.Message);
     }
 
@@ -192,7 +214,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Empty_String_Variable()
+    public void AddSubstitution_Can_Substitute_Empty_String_Key()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -213,7 +235,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Throws_When_Substituted_Variable_Is_Null()
+    public void AddSubstitution_Throws_When_Substituted_Key_Is_Null()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -227,12 +249,12 @@ public class ConfigurationSubstitutorTests
         var configuration = configurationBuilder.Build();
 
         // Act & assert
-        var ex = Assert.Throws<UnresolvedConfigurationVariableException>(() => configuration["Foo"]);
+        var ex = Assert.Throws<UnresolvedConfigurationKeyException>(() => configuration["Foo"]);
         Assert.Contains("Var1", ex.Message);
     }
 
     [Fact]
-    public void AddSubstitution_Can_Substitute_Multiple_Nested_Variables()
+    public void AddSubstitution_Can_Substitute_Multiple_Nested_Keys()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -246,7 +268,7 @@ public class ConfigurationSubstitutorTests
                 { "O", "o" },
                 { "Baz", "rld" },
             })
-            .AddSubstitution();
+            .AddSubstitution(eagerValidate: true);
 
         var configuration = configurationBuilder.Build();
 
@@ -258,7 +280,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Throws_When_Simple_Circular_Variable_Reference()
+    public void AddSubstitution_Throws_When_Simple_Circular_Key_Reference()
     {
         var configurationBuilder = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string>
@@ -270,12 +292,12 @@ public class ConfigurationSubstitutorTests
         var configuration = configurationBuilder.Build();
 
         // Act & assert
-        var ex = Assert.Throws<RecursiveConfigurationVariableException>(() => configuration["Bar"]);
+        var ex = Assert.Throws<RecursiveConfigurationKeyException>(() => configuration["Bar"]);
         Assert.Contains("Bar > bar", ex.Message);
     }
 
     [Fact]
-    public void AddSubstitution_Throws_When_Complex_Circular_Variable_Reference_In_Multiple_Variables()
+    public void AddSubstitution_Throws_When_Complex_Circular_Key_Reference_In_Multiple_Keys()
     {
         var configurationBuilder = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string>
@@ -293,12 +315,12 @@ public class ConfigurationSubstitutorTests
         var configuration = configurationBuilder.Build();
 
         // Act & assert
-        var ex = Assert.Throws<RecursiveConfigurationVariableException>(() => configuration["Bar"]);
+        var ex = Assert.Throws<RecursiveConfigurationKeyException>(() => configuration["Bar"]);
         Assert.Contains("Bar > Foo > Qux > WO > Bar", ex.Message);
     }
 
     [Fact]
-    public void AddSubstitution_Does_Not_Substitute_Escaped_Variables_And_Removes_Escape_Characters()
+    public void AddSubstitution_Does_Not_Substitute_Escaped_Keys_And_Removes_Escape_Characters()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()
@@ -319,7 +341,7 @@ public class ConfigurationSubstitutorTests
     }
 
     [Fact]
-    public void AddSubstitution_Ignores_Incomplete_Escaped_Variable_And_Does_Not_Unescape()
+    public void AddSubstitution_Ignores_Incomplete_Escaped_Key_And_Does_Not_Unescape()
     {
         // Arrange
         var configurationBuilder = new ConfigurationBuilder()

@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
-    <Copyright>Copyright © GSoft $([System.DateTime]::UtcNow.ToString(yyyy))</Copyright>
+    <Copyright>Copyright © Groupe GSoft inc. $([System.DateTime]::UtcNow.ToString(yyyy))</Copyright>
     <Authors>Anthony Simmon</Authors>
-    <Owners>GSoft</Owners>
+    <Owners>Groupe GSoft inc.</Owners>
     <PackageProjectUrl>https://github.com/gsoft-inc/gsoft-extensions-configuration-substitution</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <LangVersion>10</LangVersion>

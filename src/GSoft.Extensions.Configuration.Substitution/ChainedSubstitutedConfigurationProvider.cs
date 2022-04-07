@@ -36,16 +36,16 @@ internal sealed class ChainedSubstitutedConfigurationProvider : ConfigurationPro
     {
         if (this._validate)
         {
-            this.EnsureAllVariablesAreSubstituted();
+            this.EnsureAllKeysAreSubstituted();
         }
     }
 
-    private void EnsureAllVariablesAreSubstituted()
+    private void EnsureAllKeysAreSubstituted()
     {
         foreach (var kvp in this._config.AsEnumerable())
         {
             // This loop goes through the entire configuration (even nested sections).
-            // Reading each individual variable triggers the substitution process and it will throw if a referenced variable is unresolved.
+            // Reading each individual value triggers the substitution process and it will throw if a referenced key is unresolved.
             _ = kvp.Value;
         }
     }
