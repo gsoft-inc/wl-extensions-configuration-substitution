@@ -1,0 +1,1 @@
+# GSoft.Extensions.Configuration.Substitution
