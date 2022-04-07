@@ -62,9 +62,11 @@ You might not want a specific value to be substituted. In that case, escape it u
 ```json
 {
   "Foo": "foo",
-  "Bar": "${{Foo}}" // configuration["Bar"] would return "${Foo}"
+  "Bar": "${{Foo}}"
 }
 ```
+
+Evaluating the configuration value `Bar` would return `${Foo}`.
 
 
 ### Exceptions
