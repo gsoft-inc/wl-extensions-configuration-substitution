@@ -74,7 +74,7 @@ You can encounter two kinds of exceptions if your configuration is incorrect:
 * `UnresolvedConfigurationKeyException`, if you're trying to substitute a configuration value that is undefined (i.e. the key does not exist).
 * `RecursiveConfigurationKeyException`, if you have many configuration values that reference each other in a recursive manner, no matter how deep the recursion is. The exception will give you details about the recursive path.
 
-`UnresolvedConfigurationKeyException` can also be triggered sooner than later by using `AddSubstitution(eagerValidation: true)`. Using `eagerValidation` with value `true` (default is `false`) instructs the library to immediately go through all configuration values and check if there are referenced configuration values that are undefined.
+`UnresolvedConfigurationKeyException` can also be triggered sooner than later by using `AddSubstitution(eagerValidation: true)`. Using `eagerValidation` with value `true` (default is `false`) instructs the library to check for undefined values in **all the existing configuration values** once, instead of checking for a particular value. This happens as soon as any configuration value is loaded.
 
 
 ### Configuration providers order
