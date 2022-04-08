@@ -24,7 +24,7 @@ jobs:
 
     - name: Remove outdated Nuget packages
       working-directory: ./src
-      run: find . -type f \( -name "*.nupkg" -o -name "*.snupkg" \)
+      run: find . \( -name "*.nupkg" -o -name "*.snupkg" \) -type f -delete
 
     - name: Restore dependencies
       working-directory: ./src
@@ -40,4 +40,8 @@ jobs:
 
     - name: NuGet push
       working-directory: ./src/GSoft.Extensions.Configuration.Substitution/bin/Release
-      run: find . -type f \( -name "*.nupkg" -o -name "*.snupkg" \)
+      run: mv *.nupkg GSoft.Extensions.Configuration.Substitution.nupkg && mv *.snupkg GSoft.Extensions.Configuration.Substitution.snupkg
+
+    - name: List Nuget packages
+      working-directory: ./src
+      run: find . \( -name "*.nupkg" -o -name "*.snupkg" \) -type f
