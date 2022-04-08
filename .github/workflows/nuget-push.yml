@@ -22,6 +22,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - name: Remove outdated Nuget packages
+      working-directory: ./src
+      run: find . -type f \( -name "*.nupkg" -o -name "*.snupkg" \)
+
     - name: Restore dependencies
       working-directory: ./src
       run: dotnet restore
@@ -34,10 +38,6 @@ jobs:
       working-directory: ./src
       run: dotnet test -c Release --no-build --verbosity normal
 
-    - name: Remove outdated Nuget packages
-      working-directory: ./src/GSoft.Extensions.Configuration.Substitution/bin/Release
-      run: rm -rf *.nupkg
-
     - name: NuGet push
       working-directory: ./src/GSoft.Extensions.Configuration.Substitution/bin/Release
-      run: ls -la
+      run: find . -type f \( -name "*.nupkg" -o -name "*.snupkg" \)
