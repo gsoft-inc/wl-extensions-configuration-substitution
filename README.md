@@ -2,6 +2,9 @@
 
 This package adds variable substitution configuration provider implementation for [Microsoft.Extensions.Configuration](https://docs.microsoft.com/en-us/dotnet/core/extensions/configuration).
 
+[![nuget](https://img.shields.io/nuget/v/GSoft.Extensions.Configuration.Substitution.svg?logo=nuget)](https://www.nuget.org/packages/GSoft.Extensions.Configuration.Substitution/)
+[![build](https://img.shields.io/github/workflow/status/gsoft-inc/gsoft-extensions-configuration-substitution/CI%20build?logo=github)](https://github.com/gsoft-inc/gsoft-extensions-configuration-substitution/actions/workflows/ci.yml)
+
 
 ## Getting started
 
