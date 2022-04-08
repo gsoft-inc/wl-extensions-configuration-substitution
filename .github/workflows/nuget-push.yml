@@ -38,10 +38,10 @@ jobs:
       working-directory: ./src
       run: dotnet test -c Release --no-build --verbosity normal
 
-    - name: NuGet push
+    - name: Rename NuGet packages
       working-directory: ./src/GSoft.Extensions.Configuration.Substitution/bin/Release
       run: mv *.nupkg GSoft.Extensions.Configuration.Substitution.nupkg && mv *.snupkg GSoft.Extensions.Configuration.Substitution.snupkg
 
-    - name: List Nuget packages
+    - name: Push NuGet packages
       working-directory: ./src
-      run: find . \( -name "*.nupkg" -o -name "*.snupkg" \) -type f
+      run: dotnet nuget push GSoft.Extensions.Configuration.Substitution.nupkg --api-key ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json
