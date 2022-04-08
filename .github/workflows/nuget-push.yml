@@ -43,5 +43,5 @@ jobs:
       run: mv *.nupkg GSoft.Extensions.Configuration.Substitution.nupkg && mv *.snupkg GSoft.Extensions.Configuration.Substitution.snupkg
 
     - name: Push NuGet packages
-      working-directory: ./src
+      working-directory: ./src/GSoft.Extensions.Configuration.Substitution/bin/Release
       run: dotnet nuget push GSoft.Extensions.Configuration.Substitution.nupkg --api-key ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json
