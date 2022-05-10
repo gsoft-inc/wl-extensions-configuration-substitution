@@ -385,3 +385,7 @@ Desktop.ini
 ehthumbs.db
 Thumbs.db
 $RECYCLE.BIN/
+
+# Cake
+build/tools/**
+!build/tools/packages.config
