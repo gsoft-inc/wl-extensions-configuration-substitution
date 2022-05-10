@@ -2,47 +2,37 @@ name: CI build
 
 on:
   push:
-    branches: [ master, develop ]
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Setup .NET Core 3.1
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 3.1.x
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 3.1.x
 
-    - name: Setup .NET 6.0
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 6.0.x
+      - name: Setup .NET 6.0
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
 
-    - name: Restore dependencies
-      working-directory: ./src
-      run: dotnet restore
+      - name: Cake build
+        run: chmod +x ./build.sh && ./build.sh --target=Pack
+        shell: bash
 
-    - name: Build
-      working-directory: ./src
-      run: dotnet build -c Release --no-restore
-
-    - name: List NuGet packages
-      working-directory: ./src
-      run: find . \( -name "*.nupkg" -o -name "*.snupkg" \) -type f
-
-    - name: Upload NuGet packages
-      uses: actions/upload-artifact@v3
-      with:
-        name: nuget-packages
-        path: |
-          ./src/GSoft.Extensions.Configuration.Substitution/bin/Release/*.nupkg
-          ./src/GSoft.Extensions.Configuration.Substitution/bin/Release/*.snupkg
-
-    - name: Test
-      working-directory: ./src
-      run: dotnet test -c Release --no-build --verbosity normal
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: ./.output/**/*

@@ -6,17 +6,12 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyTitle>GSoft.Extensions.Configuration.Substitution</AssemblyTitle>
     <PackageId>GSoft.Extensions.Configuration.Substitution</PackageId>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../GSoft.Extensions.Configuration.Substitution.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GitVersion.MsBuild" Version="5.9.0">
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
-
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
   </ItemGroup>
 </Project>
