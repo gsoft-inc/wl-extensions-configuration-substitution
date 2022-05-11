@@ -14,25 +14,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - uses: actions/setup-dotnet@v2
         with:
-          fetch-depth: 0
+          dotnet-version: |
+            3.1.x
+            6.0.x
 
-      - name: Setup .NET Core 3.1
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 3.1.x
+      - run: ./build.ps1
+        shell: pwsh
 
-      - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
-
-      - name: Cake build
-        run: chmod +x ./build.sh && ./build.sh --target=Pack
-        shell: bash
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: packages
           path: ./.output/**/*
