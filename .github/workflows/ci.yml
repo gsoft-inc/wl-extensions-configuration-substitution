@@ -21,8 +21,8 @@ jobs:
             3.1.x
             6.0.x
 
-      - run: ./build.ps1
-        shell: pwsh
+      - run: ./build.sh
+        shell: bash
 
       - uses: actions/upload-artifact@v3
         with:
