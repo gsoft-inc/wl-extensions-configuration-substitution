@@ -20,8 +20,8 @@ jobs:
             3.1.x
             6.0.x
 
-      - run: chmod +x ./build.sh && ./build.sh --target=push --nuget-api-key=${{ secrets.nuget_api_key }} --nuget-source=${{ secrets.nuget_source }}
-        shell: bash
+      - run: ./build.ps1 --target=push --nuget-api-key=${{ secrets.nuget_api_key }} --nuget-source=${{ secrets.nuget_source }}
+        shell: pwsh
 
       - uses: actions/upload-artifact@v3
         with:

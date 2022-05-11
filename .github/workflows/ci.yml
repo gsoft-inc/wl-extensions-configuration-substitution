@@ -23,8 +23,8 @@ jobs:
             3.1.x
             6.0.x
 
-      - run: chmod +x ./build.sh && ./build.sh
-        shell: bash
+      - run: ./build.ps1
+        shell: pwsh
 
       - uses: actions/upload-artifact@v3
         with:
