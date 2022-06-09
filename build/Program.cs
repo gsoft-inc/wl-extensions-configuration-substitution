@@ -125,19 +125,14 @@ public sealed class BuildTask : FrostingTask<BuildContext>
 [IsDependentOn(typeof(BuildTask))]
 public sealed class TestTask : FrostingTask<BuildContext>
 {
-    public override void Run(BuildContext context)
+    public override void Run(BuildContext context) => context.DotNetTest(Constants.SolutionPath, new DotNetTestSettings
     {
-        foreach (var testProjectFilePath in context.GetFiles(Path.Combine(Constants.SourceDirectoryPath, "*", "*.Tests.csproj")))
-        {
-            context.DotNetTest(testProjectFilePath.FullPath, new DotNetTestSettings
-            {
-                Configuration = Constants.Release,
-                Loggers = new[] { "console;verbosity=detailed" },
-                NoBuild = true,
-                NoLogo = true,
-            });
-        }
-    }
+        Configuration = Constants.Release,
+        Loggers = new[] { "console;verbosity=detailed", "trx" },
+        ResultsDirectory = Constants.OutputDirectoryPath,
+        NoBuild = true,
+        NoLogo = true,
+    });
 }
 
 [TaskName("Pack")]
