@@ -4,10 +4,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSoft.Extensions.Configurat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSoft.Extensions.Configuration.Substitution.Tests", "GSoft.Extensions.Configuration.Substitution.Tests\GSoft.Extensions.Configuration.Substitution.Tests.csproj", "{C7F78FAD-BA5F-4593-890A-9F74EF2B6CF6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{34567226-9E27-4DF9-A2B9-DE1185D56FD1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{34567226-9E27-4DF9-A2B9-DE1185D56FD1}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		.editorconfig = .editorconfig
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Global
