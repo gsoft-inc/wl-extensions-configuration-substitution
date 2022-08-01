@@ -16,9 +16,14 @@ dotnet add package GSoft.Extensions.Configuration.Substitution
 // Example for an ASP.NET Core web application
 var builder = WebApplication.CreateBuilder(args);
 
+// Setup your configuration
 builder.Configuration.AddJsonFile("appsettings.json");
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddSubstitution(); // <-- Add this after other configuration providers
+
+// Setup your services
+// [...]
+builder.Services.AddSubstitution(); // <-- Add also this to your service collection
 ```
 
 
