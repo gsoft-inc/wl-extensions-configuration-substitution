@@ -1,3 +1,4 @@
+using System.Linq;
 using GSoft.Extensions.Configuration.Substitution;
 
 // ReSharper disable once CheckNamespace
@@ -16,24 +17,8 @@ public static class ConfigurationSubstitutorBuilderExtensions
     /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
     public static IConfigurationBuilder AddSubstitution(this IConfigurationBuilder configurationBuilder, bool eagerValidation = false)
     {
-        return AddSubstitution(configurationBuilder, new ConfigurationSubstitutor(), eagerValidation);
-    }
-
-    private static IConfigurationBuilder AddSubstitution(this IConfigurationBuilder configurationBuilder, ConfigurationSubstitutor substitutor, bool validate)
-    {
-        var intermediateConfigurationBuilder = new ConfigurationBuilder();
-
-        foreach (var source in configurationBuilder.Sources)
-        {
-            // Prevent infinite recursive loop where several instances of our configuration source type would wrap each other
-            if (source is not ChainedSubstitutedConfigurationSource)
-            {
-                intermediateConfigurationBuilder.Add(source);
-            }
-        }
-
-        var configuration = intermediateConfigurationBuilder.Build();
-
-        return configurationBuilder.Add(new ChainedSubstitutedConfigurationSource(substitutor, configuration, validate));
+        // Filtering the sources prevents infinite recursive loop where several instances of our configuration source type would wrap each other
+        var configurationSources = configurationBuilder.Sources.Where(x => x is not ChainedSubstitutedConfigurationSource).ToArray();
+        return configurationBuilder.Add(new ChainedSubstitutedConfigurationSource(configurationSources, eagerValidation));
     }
 }
