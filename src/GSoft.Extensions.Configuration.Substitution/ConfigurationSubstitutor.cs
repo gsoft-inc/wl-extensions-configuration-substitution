@@ -6,20 +6,20 @@ using Microsoft.Extensions.Configuration;
 
 namespace GSoft.Extensions.Configuration.Substitution;
 
-internal sealed class ConfigurationSubstitutor
+internal static class ConfigurationSubstitutor
 {
     // Matches two kind of strings:
     // Configuration keys that needs to be substituted, such as ${Foo}.
     // Escaped keys that must not be substituted, such as ${{Foo}}. In this case, it will be replaced by ${Foo}.
     private static readonly Regex SubstitutionsRegex = new Regex(@"(?<=\$\{)([^\{\}]+|\{[^\{\}]+\})(?=\})", RegexOptions.Compiled);
 
-    public string? GetSubstituted(IConfiguration configuration, string key)
+    public static string? GetSubstituted(IConfiguration configuration, string key)
     {
         var value = configuration[key];
-        return value == null ? value : this.ApplySubstitutionRecursive(configuration, key, value, alreadySubstitutedKeys: null);
+        return value == null ? value : ApplySubstitutionRecursive(configuration, key, value, alreadySubstitutedKeys: null);
     }
 
-    private string ApplySubstitutionRecursive(IConfiguration configuration, string key, string value, List<string>? alreadySubstitutedKeys)
+    private static string ApplySubstitutionRecursive(IConfiguration configuration, string key, string value, List<string>? alreadySubstitutedKeys)
     {
         alreadySubstitutedKeys?.Add(key);
 
@@ -50,7 +50,7 @@ internal sealed class ConfigurationSubstitutor
                 throw new UnresolvedConfigurationKeyException(keyToSubstitute, key);
             }
 
-            var recursivelySubstitutedValue = this.ApplySubstitutionRecursive(configuration, keyToSubstitute, substitutedValue, alreadySubstitutedKeys);
+            var recursivelySubstitutedValue = ApplySubstitutionRecursive(configuration, keyToSubstitute, substitutedValue, alreadySubstitutedKeys);
 
             value = value.Replace("${" + keyToSubstitute + "}", recursivelySubstitutedValue);
         }

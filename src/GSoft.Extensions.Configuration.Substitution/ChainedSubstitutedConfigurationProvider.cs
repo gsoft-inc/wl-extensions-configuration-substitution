@@ -6,20 +6,19 @@ namespace GSoft.Extensions.Configuration.Substitution;
 
 internal sealed class ChainedSubstitutedConfigurationProvider : ConfigurationProvider
 {
-    private readonly IConfiguration _config;
-    private readonly ConfigurationSubstitutor _substitutor;
-    private readonly bool _validate;
+    private readonly bool _eagerValidation;
 
-    public ChainedSubstitutedConfigurationProvider(IConfiguration config, ConfigurationSubstitutor substitutor, bool validate)
+    public ChainedSubstitutedConfigurationProvider(IConfigurationRoot configuration, bool eagerValidation)
     {
-        this._config = config;
-        this._substitutor = substitutor;
-        this._validate = validate;
+        this.Configuration = configuration;
+        this._eagerValidation = eagerValidation;
     }
+
+    public IConfigurationRoot Configuration { get; }
 
     public override bool TryGet(string key, out string value)
     {
-        var substituted = this._substitutor.GetSubstituted(this._config, key);
+        var substituted = ConfigurationSubstitutor.GetSubstituted(this.Configuration, key);
         if (substituted == null)
         {
             value = string.Empty;
@@ -30,11 +29,11 @@ internal sealed class ChainedSubstitutedConfigurationProvider : ConfigurationPro
         return true;
     }
 
-    public override void Set(string key, string value) => this._config[key] = value;
+    public override void Set(string key, string value) => this.Configuration[key] = value;
 
     public override void Load()
     {
-        if (this._validate)
+        if (this._eagerValidation)
         {
             this.EnsureAllKeysAreSubstituted();
         }
@@ -42,7 +41,7 @@ internal sealed class ChainedSubstitutedConfigurationProvider : ConfigurationPro
 
     private void EnsureAllKeysAreSubstituted()
     {
-        foreach (var kvp in this._config.AsEnumerable())
+        foreach (var kvp in this.Configuration.AsEnumerable())
         {
             // This loop goes through the entire configuration (even nested sections).
             // Reading each individual value triggers the substitution process and it will throw if a referenced key is unresolved.
@@ -52,7 +51,8 @@ internal sealed class ChainedSubstitutedConfigurationProvider : ConfigurationPro
 
     public override IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string? parentPath)
     {
-        var section = parentPath == null ? this._config : this._config.GetSection(parentPath);
+        IConfiguration config = this.Configuration;
+        var section = parentPath == null ? config : config.GetSection(parentPath);
         var keys = section.GetChildren().Select(c => c.Key);
         return keys.Concat(earlierKeys).OrderBy(k => k, ConfigurationKeyComparer.Instance).ToArray();
     }
