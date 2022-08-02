@@ -4,12 +4,10 @@ namespace GSoft.Extensions.Configuration.Substitution;
 
 internal sealed class ChainedSubstitutedConfigurationSource : IConfigurationSource
 {
-    private readonly IConfigurationSource[] _configurationSources;
     private readonly bool _eagerValidation;
 
-    public ChainedSubstitutedConfigurationSource(IConfigurationSource[] configurationSources, bool eagerValidation)
+    public ChainedSubstitutedConfigurationSource(bool eagerValidation)
     {
-        this._configurationSources = configurationSources;
         this._eagerValidation = eagerValidation;
     }
 
@@ -17,9 +15,9 @@ internal sealed class ChainedSubstitutedConfigurationSource : IConfigurationSour
     {
         var configurationBuilder = new ConfigurationBuilder();
 
-        foreach (var configurationSource in this._configurationSources)
+        for (var i = 0; i < builder.Sources.Count && builder.Sources[i] is not ChainedSubstitutedConfigurationSource; i++)
         {
-            configurationBuilder.Add(configurationSource);
+            configurationBuilder.Add(builder.Sources[i]);
         }
 
         return new ChainedSubstitutedConfigurationProvider(configurationBuilder.Build(), this._eagerValidation);
