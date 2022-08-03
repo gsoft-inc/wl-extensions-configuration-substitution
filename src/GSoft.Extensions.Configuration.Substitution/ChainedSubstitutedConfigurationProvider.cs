@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
@@ -5,7 +6,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace GSoft.Extensions.Configuration.Substitution;
 
-internal sealed class ChainedSubstitutedConfigurationProvider : IConfigurationProvider
+internal sealed class ChainedSubstitutedConfigurationProvider : IConfigurationProvider, IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly bool _eagerValidation;
@@ -59,5 +60,13 @@ internal sealed class ChainedSubstitutedConfigurationProvider : IConfigurationPr
         var section = parentPath == null ? this._configuration : this._configuration.GetSection(parentPath);
         var keys = section.GetChildren().Select(c => c.Key);
         return keys.Concat(earlierKeys).OrderBy(k => k, ConfigurationKeyComparer.Instance).ToArray();
+    }
+
+    public void Dispose()
+    {
+        // ConfigurationRoot could have disposable configuration providers:
+        // https://github.com/dotnet/runtime/blob/v6.0.0/src/libraries/Microsoft.Extensions.Configuration/src/ConfigurationRoot.cs#L99
+        // this.Dispose() is called when the IServiceProvider is disposed (mostly on app shutdown)
+        (this._configuration as IDisposable)?.Dispose();
     }
 }
