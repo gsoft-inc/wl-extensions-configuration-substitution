@@ -1,4 +1,5 @@
 GSoft.Extensions.Configuration.Substitution.RecursiveConfigurationKeyException
 GSoft.Extensions.Configuration.Substitution.RecursiveConfigurationKeyException.RecursiveConfigurationKeyException(System.Collections.Generic.IEnumerable<string!>! keyNames) -> void
+GSoft.Extensions.Configuration.Substitution.UnresolvedConfigurationKeyException.UnresolvedConfigurationKeyException(string! keyName, string! requestingKeyName) -> void
 Microsoft.Extensions.Configuration.ConfigurationSubstitutorBuilderExtensions
 static Microsoft.Extensions.Configuration.ConfigurationSubstitutorBuilderExtensions.AddSubstitution(this Microsoft.Extensions.Configuration.IConfigurationBuilder! configurationBuilder, bool eagerValidation = false) -> Microsoft.Extensions.Configuration.IConfigurationBuilder!
