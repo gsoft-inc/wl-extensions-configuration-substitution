@@ -1,0 +1,25 @@
+name: Publish
+
+on:
+  push:
+    branches: ["main", "master"]
+    tags: ["*.*.*"]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "6.0.x"
+
+      - run: ./Build.ps1
+        shell: pwsh
+        env:
+          NUGET_SOURCE: ${{ secrets.NUGET_SOURCE }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}

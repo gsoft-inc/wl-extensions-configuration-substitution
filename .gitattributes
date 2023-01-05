@@ -12,4 +12,5 @@
 *.yml  text eol=lf
 *.yaml text eol=lf
 *.Dockerfile text eol=lf
+Dockerfile text eol=lf
 LICENSE text eol=lf
