@@ -30,7 +30,10 @@ internal sealed class ChainedSubstitutedConfigurationProvider : IConfigurationPr
         return true;
     }
 
-    public void Set(string key, string value) => this._configuration[key] = value;
+    public void Set(string key, string? value)
+    {
+        this._configuration[key] = value;
+    }
 
     public IChangeToken GetReloadToken()
     {
