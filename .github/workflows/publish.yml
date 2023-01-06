@@ -1,8 +1,9 @@
-name: CI
+name: Publish
 
 on:
-  pull_request:
+  push:
     branches: ["main", "master"]
+    tags: ["*.*.*"]
 
 jobs:
   main:
@@ -19,3 +20,6 @@ jobs:
 
       - run: ./Build.ps1
         shell: pwsh
+        env:
+          NUGET_SOURCE: ${{ secrets.NUGET_SOURCE }}
+          NUGET_API_KEY: ${{ secrets.GSOFTINC_NUGET_API_KEY }}

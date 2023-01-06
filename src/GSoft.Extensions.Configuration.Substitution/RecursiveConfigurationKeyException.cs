@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace GSoft.Extensions.Configuration.Substitution;
 
 public sealed class RecursiveConfigurationKeyException : Exception
