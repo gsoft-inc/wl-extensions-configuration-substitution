@@ -1,5 +1,4 @@
-﻿#nullable enable
-GSoft.Extensions.Configuration.Substitution.RecursiveConfigurationKeyException
+﻿GSoft.Extensions.Configuration.Substitution.RecursiveConfigurationKeyException
 GSoft.Extensions.Configuration.Substitution.RecursiveConfigurationKeyException.RecursiveConfigurationKeyException(System.Collections.Generic.IEnumerable<string!>! keyNames) -> void
 GSoft.Extensions.Configuration.Substitution.UnresolvedConfigurationKeyException
 GSoft.Extensions.Configuration.Substitution.UnresolvedConfigurationKeyException.UnresolvedConfigurationKeyException(string! keyName, string! requestingKeyName) -> void
