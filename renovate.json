@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "platform": "github",
+  "labels": ["renovate"],
+  "extends": [
+    "config:base",
+    ":rebaseStalePrs"
+  ],
+  "enabledManagers": [
+    "nuget",
+    "github-actions"
+  ],
+  "stabilityDays": 3,
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "branchConcurrentLimit": 0,
+  "dependencyDashboard": false,
+  "packageRules": [
+    {
+      "matchManagers": ["nuget"],
+      "excludePackagePatterns": ["^Microsoft\\.Extensions\\.", "^System\\."],
+      "groupName": "NuGet dependencies"
+    },
+    {
+      "matchManagers": ["nuget"],
+      "matchPackagePatterns": ["^Microsoft\\.Extensions\\.", "^System\\."],
+      "groupName": "Ignored NuGet dependencies",
+      "description": "These packages are usually set to a user-defined minimal supported version such as 6.0.0 for .NET 6, and they are overriden by consuming applications",
+      "enabled": false
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub actions dependencies"
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  }
+}
