@@ -1,0 +1,27 @@
+name: Semgrep Pull Request Scan
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  semgrep-diff:
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+
+    steps:
+      - name: clone application source code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: pull request scan
+        run: |
+          semgrep scan \
+            --error \
+            --verbose \
+            --time \
+            --baseline-commit ${{ github.event.pull_request.base.sha }} \
+            --config="p/default"
+
+
