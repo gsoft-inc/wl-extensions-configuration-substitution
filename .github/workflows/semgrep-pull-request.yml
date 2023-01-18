@@ -1,4 +1,4 @@
-name: Semgrep Differential Scan
+name: Semgrep Pull Request Scan
 on:
   pull_request:
     branches: [ "main" ]
@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: differential scan
+      - name: pull request scan
         run: |
           semgrep scan \
             --error \
