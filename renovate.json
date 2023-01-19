@@ -15,6 +15,7 @@
   "prConcurrentLimit": 0,
   "branchConcurrentLimit": 0,
   "dependencyDashboard": false,
+  "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
   "packageRules": [
     {
       "matchManagers": ["nuget"],
