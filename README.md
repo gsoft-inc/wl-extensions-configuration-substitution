@@ -87,11 +87,6 @@ You can encounter two kinds of exceptions if your configuration is incorrect:
 When using .NET's [IConfigurationBuilder](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.configuration.iconfigurationbuilder), the order of configuration providers matters . Any configuration provider added after `AddSubstitution()` would not benefit from the substitution process.
 
 
-## 🤝 Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. If you're interested, definitely check out our Contributing Guide!
-
-
 ## License
 
 Copyright © 2022, GSoft inc. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/gsoft-inc/gsoft-license/blob/master/LICENSE.
