@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
-    <Copyright>Copyright © GSoft Group Inc. $([System.DateTime]::UtcNow.ToString(yyyy))</Copyright>
-    <Authors>GSoft Group Inc.</Authors>
-    <Owners>GSoft Group Inc.</Owners>
-    <PackageProjectUrl>https://github.com/gsoft-inc/gsoft-extensions-configuration-substitution</PackageProjectUrl>
+    <Copyright>Copyright © Workleap. $([System.DateTime]::UtcNow.ToString(yyyy))</Copyright>
+    <Authors>Workleap</Authors>
+    <Owners>Workleap</Owners>
+    <PackageProjectUrl>https://github.com/gsoft-inc/wl-extensions-configuration-substitution</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>

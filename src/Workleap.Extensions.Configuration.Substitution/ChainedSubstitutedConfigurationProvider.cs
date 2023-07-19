@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 
-namespace GSoft.Extensions.Configuration.Substitution;
+namespace Workleap.Extensions.Configuration.Substitution;
 
 internal sealed class ChainedSubstitutedConfigurationProvider : IConfigurationProvider, IDisposable
 {

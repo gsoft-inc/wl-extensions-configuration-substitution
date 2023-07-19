@@ -1,8 +1,7 @@
-using System;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 
-namespace GSoft.Extensions.Configuration.Substitution;
+namespace Workleap.Extensions.Configuration.Substitution;
 
 [DebuggerDisplay("CachedConfigurationSource({_underlyingConfigurationSourceType})")]
 internal sealed class CachedConfigurationSource : IConfigurationSource

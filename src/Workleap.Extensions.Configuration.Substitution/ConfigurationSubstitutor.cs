@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 
-namespace GSoft.Extensions.Configuration.Substitution;
+namespace Workleap.Extensions.Configuration.Substitution;
 
 internal static class ConfigurationSubstitutor
 {
