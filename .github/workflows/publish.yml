@@ -22,4 +22,4 @@ jobs:
         shell: pwsh
         env:
           NUGET_SOURCE: ${{ secrets.NUGET_SOURCE }}
-          NUGET_API_KEY: ${{ secrets.GSOFTINC_NUGET_API_KEY }}
+          NUGET_API_KEY: ${{ secrets.WORKLEAP_NUGET_API_KEY }}
