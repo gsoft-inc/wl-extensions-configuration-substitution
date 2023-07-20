@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
-using Xunit;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace GSoft.Extensions.Configuration.Substitution.Tests;
+namespace Workleap.Extensions.Configuration.Substitution.Tests;
 
 public class ConfigurationSubstitutorTests
 {

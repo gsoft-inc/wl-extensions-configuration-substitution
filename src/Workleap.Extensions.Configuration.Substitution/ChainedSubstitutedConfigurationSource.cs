@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace GSoft.Extensions.Configuration.Substitution;
+namespace Workleap.Extensions.Configuration.Substitution;
 
 internal sealed class ChainedSubstitutedConfigurationSource : IConfigurationSource
 {
