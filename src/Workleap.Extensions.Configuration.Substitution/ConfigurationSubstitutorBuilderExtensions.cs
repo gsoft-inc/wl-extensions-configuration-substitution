@@ -1,4 +1,4 @@
-using GSoft.Extensions.Configuration.Substitution;
+using Workleap.Extensions.Configuration.Substitution;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.Configuration;

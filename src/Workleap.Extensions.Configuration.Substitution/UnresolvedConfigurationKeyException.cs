@@ -1,6 +1,4 @@
-using System;
-
-namespace GSoft.Extensions.Configuration.Substitution;
+namespace Workleap.Extensions.Configuration.Substitution;
 
 public sealed class UnresolvedConfigurationKeyException : Exception
 {

@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../GSoft.Extensions.Configuration.Substitution.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../Workleap.Extensions.Configuration.Substitution.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GSoft.Extensions.Configuration.Substitution\GSoft.Extensions.Configuration.Substitution.csproj" />
+    <ProjectReference Include="..\Workleap.Extensions.Configuration.Substitution\Workleap.Extensions.Configuration.Substitution.csproj" />
   </ItemGroup>
 </Project>
