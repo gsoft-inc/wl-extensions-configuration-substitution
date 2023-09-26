@@ -13,7 +13,11 @@ jobs:
       shell: pwsh
       run: |
             Install-Module JiraPS -Scope CurrentUser -Force
+<<<<<<< HEAD
             if ("$env:GITHUB_HEAD_REF" -like "*renovate/*" -eq $True)
+=======
+            if ("$env:GITHUB_HEAD_REF" -like "*/renovate/*" -eq $True)
+>>>>>>> main
             {
               Write-Host "Skipping, renovate branch detected"
               return
