@@ -8,6 +8,7 @@
     <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AnalysisLevel>latest-All</AnalysisLevel>
     <Description>Variable substitution configuration provider implementation for Microsoft.Extensions.Configuration.</Description>
   </PropertyGroup>
 
