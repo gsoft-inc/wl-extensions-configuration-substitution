@@ -15,7 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0" Condition=" '$(Configuration)' == 'Release' ">
+    <PackageReference Include="GitVersion.MsBuild" Version="6.0.0" Condition=" '$(Configuration)' == 'Release' ">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
