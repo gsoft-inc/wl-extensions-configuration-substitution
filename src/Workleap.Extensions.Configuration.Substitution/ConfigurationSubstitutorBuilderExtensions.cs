@@ -1,7 +1,6 @@
 using Workleap.Extensions.Configuration.Substitution;
 
 #pragma warning disable IDE0130 // Namespace does not match folder structure
-// ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.Configuration;
 
 public static class ConfigurationSubstitutorBuilderExtensions
