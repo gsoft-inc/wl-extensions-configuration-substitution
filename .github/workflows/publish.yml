@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "6.0.x"
+          global-json-file: "global.json"
 
       - run: ./Build.ps1
         shell: pwsh
