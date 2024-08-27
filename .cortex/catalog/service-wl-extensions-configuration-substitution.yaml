@@ -1,0 +1,22 @@
+openapi: 3.0.1
+info:
+  title: Workleap Extensions Configuration Substitution
+  x-cortex-git:
+    github:
+      alias: gsoft-inc
+      repository: gsoft-inc/wl-extensions-configuration-substitution
+  x-cortex-tag: service-wl-extensions-configuration-substitution
+  x-cortex-type: library
+  x-cortex-slack:
+    channels:
+    - name: internal-dev-platform
+      notificationsEnabled: true
+  x-cortex-owners:
+  - name: team-internal-developer-platform-backend
+    type: GROUP
+    provider: CORTEX
+  x-cortex-link:
+  - type: cortex
+    url: https://github.com/gsoft-inc/wl-extensions-configuration-substitution/blob/main/.cortex/catalog/service-wl-extensions-configuration-substitution.yaml
+    name: Edit current Cortex entity in GitHub
+
