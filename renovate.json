@@ -1,20 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>gsoft-inc/renovate-config"
+    "github>gsoft-inc/renovate-config",
+    "github>gsoft-inc/renovate-config:all-automerge.json"
   ],
   "packageRules": [
     {
-      "matchManagers": [
-        "nuget"
-      ],
+      "matchManagers": "nuget",
       "groupName": "Ignored NuGet dependencies",
       "description": "These packages are usually set to a user-defined minimal supported version such as 6.0.0 for .NET 6, and they are overriden by consuming applications",
       "enabled": false,
-      "matchPackageNames": [
-        "/^Microsoft\\.Extensions\\./",
-        "/^System\\./"
-      ]
+      "matchPackageNames": "/^Microsoft\\.Extensions\\./ /^System\\./"
     }
   ]
 }
