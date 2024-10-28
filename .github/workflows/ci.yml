@@ -3,7 +3,11 @@ name: CI
 on:
   pull_request:
     branches: ["main"]
-
+  
+  push:
+    branches:
+      - "renovate/**"
+  
 jobs:
   main:
     runs-on: ubuntu-latest
