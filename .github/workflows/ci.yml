@@ -3,6 +3,7 @@ name: CI
 on:
   pull_request:
     branches: ["main"]
+    paths-ignore: ["*.md"]
   
   push:
     branches:
@@ -14,8 +15,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  main:
-    runs-on: ubuntu-latest
+  ci:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
@@ -23,10 +27,20 @@ jobs:
           fetch-depth: 0
 
       - uses: actions/setup-dotnet@v4
-
-      - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "6.0.x"
+          source-url: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GSOFT_NUGET_API_KEY }}
 
       - run: ./Build.ps1
         shell: pwsh
+        env:
+          NUGET_SOURCE: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
+          NUGET_API_KEY: ${{ secrets.GSOFT_NUGET_API_KEY }}
+
+  linearb:
+    needs: [ci]
+    uses: gsoft-inc/wl-reusable-workflows/.github/workflows/linearb-deployment.yml@main
+    with:
+      environment: development
+    secrets: inherit
