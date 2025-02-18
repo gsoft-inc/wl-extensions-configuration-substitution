@@ -1,8 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>gsoft-inc/renovate-config",
-    "github>gsoft-inc/renovate-config:all-automerge.json"
+    "github>workleap/renovate-config",
+    "github>workleap/renovate-config:all-automerge.json"
   ],
   "packageRules": [
     {

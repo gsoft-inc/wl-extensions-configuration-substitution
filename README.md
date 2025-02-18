@@ -3,7 +3,7 @@
 This package adds variable substitution configuration provider implementation for [Microsoft.Extensions.Configuration](https://docs.microsoft.com/en-us/dotnet/core/extensions/configuration).
 
 [![nuget](https://img.shields.io/nuget/v/Workleap.Extensions.Configuration.Substitution.svg?logo=nuget)](https://www.nuget.org/packages/Workleap.Extensions.Configuration.Substitution/)
-[![build](https://img.shields.io/github/actions/workflow/status/gsoft-inc/wl-extensions-configuration-substitution/publish.yml?logo=github)](https://github.com/gsoft-inc/wl-extensions-configuration-substitution/actions/workflows/publish.yml)
+[![build](https://img.shields.io/github/actions/workflow/status/workleap/wl-extensions-configuration-substitution/publish.yml?logo=github)](https://github.com/workleap/wl-extensions-configuration-substitution/actions/workflows/publish.yml)
 
 ## Getting started
 
@@ -89,4 +89,4 @@ When using .NET's [IConfigurationBuilder](https://docs.microsoft.com/en-us/dotne
 
 ## License
 
-Copyright © 2022, Workleap. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/gsoft-inc/gsoft-license/blob/master/LICENSE.
+Copyright © 2022, Workleap. This code is licensed under the Apache License, Version 2.0. You may obtain a copy of this license at https://github.com/workleap/gsoft-license/blob/master/LICENSE.
